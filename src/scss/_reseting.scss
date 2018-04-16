@@ -1,0 +1,56 @@
+@import "_mixins";
+/*
+
+	FONTS
+
+*/
+// @font-face {
+// 	font-family: Roboto;
+// 	src: url( 'fonts/roboto/Roboto-Regular-woff' );
+// 	src: url( 'fonts/roboto/Roboto-Regular-woff2' );
+// }
+/*
+
+	TAGS
+
+*/
+html,
+body {
+ 	min-height: 100vh;
+
+ 	// *{
+ 	// 	box-sizing: border-box;
+ 	// }
+}
+img {
+	// width: 100%;
+}
+h1,h2,h3,h4,h5,h6,
+p, label {
+	// margin: 0;
+}
+/*
+
+	ADMIN BAR FIXES
+
+*/
+.admin-bar {
+
+	.fixed {
+		top: 60px;
+
+		@media screen and ( max-width: 991.99px ) {
+			top: 60px;
+		}
+
+		@media screen and ( max-width: 782px ) {
+			top: 60px;
+		}
+	}
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar {
+		position: fixed;
+	}
+}

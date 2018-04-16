@@ -1,0 +1,61 @@
+/*
+
+  FIXED BREAKPOINTS
+
+*/
+@mixin xs-only {
+  @media (max-width: 600px ) { @content; }
+}
+@mixin sm-only {
+  @media (min-width: 601px) and (max-width: 992px) { @content; }
+}
+@mixin md-only {
+  @media (min-width: 993px) and (max-width: 1200px) { @content; }
+}
+@mixin lg-only {
+  @media (min-width: 1201px) { @content; }
+}
+/*
+
+  BELOW X BREAKPOINTS
+
+*/
+@mixin sm-max {
+  @media (max-width: 992px) { @content; }
+}
+@mixin md-max {
+  @media (max-width: 1200px) { @content; }
+}
+/*
+
+  ABOVE X BREAKPOINTS
+
+*/
+@mixin sm {
+  @media (min-width: 601px) { @content; }
+}
+@mixin md {
+  @media (min-width: 933px) { @content; }
+}
+@mixin lg {
+  @media (min-width: 1201px) { @content; }
+}
+/*
+
+  PLACEHOLDER
+
+*/
+@mixin placeholder($color) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-moz-placeholder {
+    color: $color;
+  }
+  &::-moz-placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+}
