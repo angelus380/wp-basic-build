@@ -2,18 +2,21 @@
 
 <?php
 
-# SITE INFO
+# site infor
 $site_name        = get_field( 'site_name', false );
 $site_description = get_field( 'site_description', false );
 $site_img         = get_field( 'site_img', false );
 $site_color       = get_field( 'site_color' );
 
-# SITE INFOR FALLBACK
-if ( empty( $site_name ) ) { $site_name = get_bloginfo( 'name' ); };
-if ( empty( $site_description ) ) { $site_description = get_bloginfo( 'description' ); };
-if ( empty( $site_img ) ) { $site_img = get_template_directory_uri().'/screenshot.png'; };
+# site info fallback
+if ( empty( $site_name ) )
+  $site_name = get_bloginfo( 'name' );
 
-?>
+if ( empty( $site_description ) )
+  $site_description = get_bloginfo( 'description' );
+
+if ( empty( $site_img ) )
+  $site_img = get_template_directory_uri().'/screenshot.png'; ?>
 
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -32,7 +35,7 @@ if ( empty( $site_img ) ) { $site_img = get_template_directory_uri().'/screensho
   <meta property="og:image" content="<?php echo $site_img; ?>"/>
 
 	<title><?php echo $site_name; ?></title>
-	
+
   <?php wp_head(); ?>
 </head>
 
