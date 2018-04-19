@@ -2,13 +2,12 @@
 
 <?php
 
-# site infor
+# site fields
 $site_name        = get_field( 'site_name', false );
 $site_description = get_field( 'site_description', false );
 $site_img         = get_field( 'site_img', false );
-$site_color       = get_field( 'site_color' );
 
-# site info fallback
+# site fields fallback
 if ( empty( $site_name ) )
   $site_name = get_bloginfo( 'name' );
 
@@ -35,6 +34,10 @@ if ( empty( $site_img ) )
   <meta property="og:image" content="<?php echo $site_img; ?>"/>
 
 	<title><?php echo $site_name; ?></title>
+
+  <?php
+  # cookiebar script
+  get_template_part( 'components/header/cookiebar' ); ?>
 
   <?php wp_head(); ?>
 </head>

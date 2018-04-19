@@ -314,5 +314,29 @@ function search_query( $query ) {
 }
 //add_filter( 'pre_get_posts', 'search_query' );
 
+#------------------------#
+# CUSTOM FUNCTIONS HERE  #
+#------------------------#
+
+# create cookiebar variables for translation
+function cookiebar_translation( $row_name ) {
+  $locale = get_locale();
+
+  if ( have_rows( $row_name, 'option' ) ) :
+    while ( have_rows( $row_name, 'option' ) ) : the_row();
+      $lang  = get_sub_field( 'language_code' );
+      $label = get_sub_field( 'label_text', false, false );
+
+      if ( !empty( $lang ) ) {
+        if ( $locale == $lang ) return $label;
+      }
+
+      else {
+        return $label;
+      }
+
+    endwhile;
+  endif;
+}
 
 ?>
