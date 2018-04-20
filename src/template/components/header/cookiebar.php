@@ -19,7 +19,7 @@ $text_color    = get_field( 'cookiebar_text_color', 'option' );
   if ( !empty( $text_color ) ) $text_color = 'text: "'.$text_color.'",';
 $is_static     = get_field( 'cookiebar_is_static', 'option' );
   if ( !empty( $is_static ) ) $is_static = 'static: true,';
-$show_link     = get_field( 'cookiebar_hide_link', 'option' );
+$show_link     = get_field( 'cookiebar_show_link', 'option' );
   if ( $show_link ) {
     $href      = get_field( 'cookiebar_url', 'option' );
       if ( !empty( $href ) ) $href = 'href: "'.esc_url( $href ).'",';
