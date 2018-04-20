@@ -3,9 +3,10 @@
 <?php
 
 # site fields
-$site_name        = get_field( 'site_name', false );
-$site_description = get_field( 'site_description', false );
-$site_img         = get_field( 'site_img', false );
+$site_name        = get_field( 'site_name', 'option', false );
+$site_description = get_field( 'site_description', 'option', false );
+$site_img         = get_field( 'site_img', 'option' );
+$site_img         = $site_img['sizes'][ 'medium' ];
 
 # site fields fallback
 if ( empty( $site_name ) )
