@@ -95,36 +95,6 @@ function change_post_label() {
 # CREATE OPTION PAGE #
 #--------------------#
 
-function create_acf_options_page( $title, $slug, $children = false ) {
-
-  if ( !empty( $children ) ) {
-    acf_add_options_page( array(
-      'page_title'  => $title,
-      'menu_title'  => $title,
-      'menu_slug'   => $slug,
-      'capability'  => 'edit_posts',
-      'redirect'    => true
-    ));
-
-    foreach ( $children as $name ) {
-      acf_add_options_sub_page( array(
-        'page_title'  => $name,
-        'menu_title'  => $name,
-        'parent_slug' => $slug,
-      ));
-    }
-  }
-  else {
-    acf_add_options_page( array(
-      'page_title'  => $title,
-      'menu_title'  => $title,
-      'menu_slug'   => $slug,
-      'capability'  => 'edit_posts',
-      'redirect'    => false
-    ));
-  }
-}
-
 if ( function_exists( 'acf_add_options_page' ) ) {
 
   acf_add_options_page();  
