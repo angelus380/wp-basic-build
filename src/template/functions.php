@@ -1,39 +1,80 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; # Exit if accessed directly
 
-#-----------------#
-# LIST OF STYLES  #
-#-----------------#
+#------------------#
+# PRODUCTION FILES #
+#------------------#
 
 function get_css_files() {
-  
-  # cookieconsent
-  wp_enqueue_style( 'cookieconsent', get_template_directory_uri() . '/vendor/cookieconsent/cookieconsent.min.css' );
-  # materialize
-  wp_enqueue_style( 'materialize', get_template_directory_uri() . '/vendor/materialize/materialize.min.css' );
-  # css
-  wp_enqueue_style( 'styles', get_template_directory_uri() . '/css/styles_v1.css' );
+
+  wp_enqueue_style( 'roboto-font',
+    'https://fonts.googleapis.com/css?family=Roboto:100,400,700', false );
+  wp_enqueue_style( 'cookieconsent', 
+    'https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css' );
+  wp_enqueue_style( 'materialize',
+    'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css' );
+  wp_enqueue_style( 'styles',
+    get_template_directory_uri() . '/css/styles_v1.css' );
 
 }
 add_action( 'wp_enqueue_scripts', 'get_css_files' );
 
-#------------------#
-# LIST OF SCRIPTS  #
-#------------------#
-
 function get_js_files() {
 
 	wp_enqueue_script( 'jquery', array(), null, true );
-  # fontawesome CDN
-  wp_enqueue_script( 'fontawesome-js', 'https://use.fontawesome.com/releases/v5.0.8/js/all.js', array(), null, true );
-  # cookieconsent
-  wp_enqueue_script( 'cookieconsent-js', get_template_directory_uri() . '/vendor/cookieconsent/cookieconsent.min.js', array(), null, true );
-  # materialize
-  wp_enqueue_script( 'materialize-js', get_template_directory_uri() . '/vendor/materialize/materialize.min.js', array(), null, true );
-  # js
-  wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts_v1.js', array(), null, true );
+  // wp_enqueue_script( 'GSAP-TweenMax', # GSAP - ROBUST
+  //   'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js' );
+  wp_enqueue_script( 'GSAP-CSSPlugin', # GSAP - LIGHTWEIGHT
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/plugins/CSSPlugin.min.js' );
+  wp_enqueue_script( 'GSAP-EasePack', # GSAP - LIGHTWEIGHT
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/easing/EasePack.min.js' );
+  wp_enqueue_script( 'GSAP-TweenLite', # GSAP - LIGHTWEIGHT
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenLite.min.js' );
+  // wp_enqueue_script( 'GSAP-TimeLineLite', # GSAP - TIMELINE LITE
+  //   'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TimelineLite.min.js' );
+  wp_enqueue_script( 'GSAP-TimeLineMax', # GSAP - TIMELINE MAX
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TimelineMax.min.js' );
+  // wp_enqueue_script( 'GSAP-ScrollToPlugin', # GSAP - SCROLLTO
+  //   'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/plugins/ScrollToPlugin.min.js' );
+  wp_enqueue_script( 'fontawesome-js',
+    'https://use.fontawesome.com/releases/v5.0.8/js/all.js' );
+  wp_enqueue_script( 'cookieconsent-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js' );
+  wp_enqueue_script( 'materialize-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js', array(), null, true );
+  wp_enqueue_script( 'scripts',
+    get_template_directory_uri() . '/js/scripts_v1.js', array(), null, true );
 
 }
 add_action( 'wp_enqueue_scripts', 'get_js_files' );
+
+#-------------------#
+# DEVELOPMENT FILES #
+#-------------------#
+
+function css_development_files() {
+
+  wp_enqueue_style( 'cookieconsent',
+    get_template_directory_uri() . '/vendor/cookieconsent/cookieconsent.min.css' );
+  wp_enqueue_style( 'materialize',
+    get_template_directory_uri() . '/vendor/materialize/materialize.min.css' );
+  wp_enqueue_style( 'styles',
+    get_template_directory_uri() . '/css/styles_v1.css' );
+
+}
+// add_action( 'wp_enqueue_scripts', 'css_development_files' );
+
+function js_development_files() {
+
+  wp_enqueue_script( 'jquery', array(), null, true );
+  wp_enqueue_script( 'cookieconsent-js',
+    get_template_directory_uri() . '/vendor/cookieconsent/cookieconsent.min.js', array(), null, true );
+  wp_enqueue_script( 'materialize-js',
+    get_template_directory_uri() . '/vendor/materialize/materialize.min.js', array(), null, true );
+  wp_enqueue_script( 'scripts',
+    get_template_directory_uri() . '/js/scripts_v1.js', array(), null, true );
+
+}
+// add_action( 'wp_enqueue_scripts', 'js_development_files' );
 
 #--------------------#
 # RENAME POSTS LABEL #
@@ -54,20 +95,42 @@ function change_post_label() {
 # CREATE OPTION PAGE #
 #--------------------#
 
-function create_acf_options_page( $title, $slug ) {
-  acf_add_options_page( array(
-    'page_title'  => $title,
-    'menu_title'  => $title,
-    'menu_slug'   => $slug,
-    'capability'  => 'edit_posts',
-    'redirect'    => false
-  )); 
+function create_acf_options_page( $title, $slug, $children = false ) {
+
+  if ( !empty( $children ) ) {
+    acf_add_options_page( array(
+      'page_title'  => $title,
+      'menu_title'  => $title,
+      'menu_slug'   => $slug,
+      'capability'  => 'edit_posts',
+      'redirect'    => true
+    ));
+
+    foreach ( $children as $name ) {
+      acf_add_options_sub_page( array(
+        'page_title'  => $name,
+        'menu_title'  => $name,
+        'parent_slug' => $slug,
+      ));
+    }
+  }
+  else {
+    acf_add_options_page( array(
+      'page_title'  => $title,
+      'menu_title'  => $title,
+      'menu_slug'   => $slug,
+      'capability'  => 'edit_posts',
+      'redirect'    => false
+    ));
+  }
 }
 
 if ( function_exists( 'acf_add_options_page' ) ) {
 
-  create_acf_options_page( 'Opções', 'options' );
-
+  acf_add_options_page();  
+    acf_add_options_sub_page('General');
+    // acf_add_options_sub_page('Header');
+    // acf_add_options_sub_page('Footer');
 }
 
 #-------------------#
@@ -178,7 +241,7 @@ function reorder_admin_menu( $__return_true ) {
 
   return array( 
    'index.php', # Dashboard
-   'options', # options
+   'acf-options-general', # options
    'edit.php', # Posts
    'edit.php?post_type=page', # Page
    //'edit.php?post_type=events', # Events
